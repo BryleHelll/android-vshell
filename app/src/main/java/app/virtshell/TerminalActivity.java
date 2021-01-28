@@ -158,7 +158,8 @@ public final class TerminalActivity extends Activity implements ServiceConnectio
 
         // Ensure that application can manage storage.
         if (!hasStoragePermission) {
-            startActivity(new Intent(this, StoragePermissionActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+            startActivity(new Intent(this, StoragePermissionActivity.class)
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
             finish();
             return;
         }
@@ -384,11 +385,16 @@ public final class TerminalActivity extends Activity implements ServiceConnectio
         processArgs.add("-nodefaults");
 
         // SCSI CD-ROM(s) and HDD(s).
-        processArgs.addAll(Arrays.asList("-drive", "file=" + runtimeDataPath + "/" + Config.CDROM_IMAGE_NAME + ",if=none,media=cdrom,index=0,id=cd0"));
-        processArgs.addAll(Arrays.asList("-drive", "file=" + runtimeDataPath + "/" + Config.HDD_IMAGE_NAME + ",if=none,index=2,discard=unmap,detect-zeroes=unmap,cache=writeback,id=hd0"));
+        processArgs.addAll(Arrays.asList("-drive", "file=" + runtimeDataPath + "/"
+            + Config.CDROM_IMAGE_NAME + ",if=none,media=cdrom,index=0,id=cd0"));
+        processArgs.addAll(Arrays.asList("-drive", "file=" + runtimeDataPath + "/"
+            + Config.HDD_IMAGE_NAME
+            + ",if=none,index=2,discard=unmap,detect-zeroes=unmap,cache=writeback,id=hd0"));
         processArgs.addAll(Arrays.asList("-device", "virtio-scsi-pci,id=virtio-scsi-pci0"));
-        processArgs.addAll(Arrays.asList("-device", "scsi-cd,bus=virtio-scsi-pci0.0,id=scsi-cd0,drive=cd0"));
-        processArgs.addAll(Arrays.asList("-device", "scsi-hd,bus=virtio-scsi-pci0.0,id=scsi-hd0,drive=hd0"));
+        processArgs.addAll(Arrays.asList("-device",
+            "scsi-cd,bus=virtio-scsi-pci0.0,id=scsi-cd0,drive=cd0"));
+        processArgs.addAll(Arrays.asList("-device",
+            "scsi-hd,bus=virtio-scsi-pci0.0,id=scsi-hd0,drive=hd0"));
 
         // Try to boot from HDD.
         // Default HDD setup has a valid MBR allowing to try next drive in case if OS not
@@ -405,8 +411,10 @@ public final class TerminalActivity extends Activity implements ServiceConnectio
 
         // Access to shared storage.
         if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
-            processArgs.addAll(Arrays.asList("-fsdev", "local,security_model=none,id=fsdev0,multidevs=remap,path=/storage/self/primary"));
-            processArgs.addAll(Arrays.asList("-device", "virtio-9p-pci,fsdev=fsdev0,mount_tag=host_storage,id=virtio-9p-pci0"));
+            processArgs.addAll(Arrays.asList("-fsdev",
+                "local,security_model=none,id=fsdev0,multidevs=remap,path=/storage/self/primary"));
+            processArgs.addAll(Arrays.asList("-device",
+                "virtio-9p-pci,fsdev=fsdev0,mount_tag=host_storage,id=virtio-9p-pci0"));
         }
 
         // We need only monitor & serial consoles.
@@ -446,7 +454,8 @@ public final class TerminalActivity extends Activity implements ServiceConnectio
         menu.add(Menu.NONE, CONTEXTMENU_SELECT_URLS, Menu.NONE, R.string.menu_select_urls);
         menu.add(Menu.NONE, CONTEXTMENU_RESET_TERMINAL_ID, Menu.NONE, R.string.menu_reset_terminal);
         menu.add(Menu.NONE, CONTEXTMEMU_SHUTDOWN, Menu.NONE, R.string.menu_shutdown);
-        menu.add(Menu.NONE, CONTEXTMENU_TOGGLE_IGNORE_BELL, Menu.NONE, R.string.menu_toggle_ignore_bell).setCheckable(true).setChecked(mSettings.isBellIgnored());
+        menu.add(Menu.NONE, CONTEXTMENU_TOGGLE_IGNORE_BELL, Menu.NONE, R.string.menu_toggle_ignore_bell)
+            .setCheckable(true).setChecked(mSettings.isBellIgnored());
     }
 
     @Override
@@ -471,7 +480,14 @@ public final class TerminalActivity extends Activity implements ServiceConnectio
                 return true;
             case CONTEXTMEMU_SHUTDOWN:
                 if (mTermService != null) {
-                    mTermService.terminateService();
+                    new AlertDialog.Builder(this)
+                        .setTitle(R.string.dialog_shut_down_title)
+                        .setMessage(R.string.dialog_shut_down_desc)
+                        .setPositiveButton(R.string.dialog_shut_down_yes_btn, (dialog, which) -> {
+                            dialog.dismiss();
+                            mTermService.terminateService();
+                        }).setNegativeButton(R.string.cancel_label,
+                        ((dialog, which) -> dialog.dismiss())).show();
                 }
                 return true;
             case CONTEXTMENU_TOGGLE_IGNORE_BELL:
@@ -528,13 +544,17 @@ public final class TerminalActivity extends Activity implements ServiceConnectio
         Collections.reverse(Arrays.asList(urls)); // Latest first.
 
         // Click to copy url to clipboard:
-        final AlertDialog dialog = new AlertDialog.Builder(TerminalActivity.this).setItems(urls, (di, which) -> {
-            String url = (String) urls[which];
-            ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-            if (clipboard != null) {
-                clipboard.setPrimaryClip(new ClipData(null, new String[]{"text/plain"}, new ClipData.Item(url)));
-                Toast.makeText(this, R.string.toast_url_copied, Toast.LENGTH_SHORT).show();
-            }
+        final AlertDialog dialog = new AlertDialog.Builder(TerminalActivity.this)
+            .setItems(urls, (di, which) -> {
+                String url = (String) urls[which];
+                ClipboardManager clipboard = (ClipboardManager)
+                    getSystemService(Context.CLIPBOARD_SERVICE);
+                if (clipboard != null) {
+                    clipboard.setPrimaryClip(new ClipData(null, new String[]{"text/plain"},
+                        new ClipData.Item(url)));
+                    Toast.makeText(this, R.string.toast_url_copied,
+                        Toast.LENGTH_SHORT).show();
+                }
         }).setTitle(R.string.select_url_dialog_title).create();
 
         // Long press to open URL:
@@ -659,7 +679,8 @@ public final class TerminalActivity extends Activity implements ServiceConnectio
      */
     public void changeFontSize(boolean increase) {
         TerminalActivity.currentFontSize += (increase ? 1 : -1) * 2;
-        TerminalActivity.currentFontSize = Math.max(MIN_FONTSIZE, Math.min(TerminalActivity.currentFontSize, MAX_FONTSIZE));
+        TerminalActivity.currentFontSize = Math.max(MIN_FONTSIZE,
+            Math.min(TerminalActivity.currentFontSize, MAX_FONTSIZE));
         mTerminalView.setTextSize(TerminalActivity.currentFontSize);
     }
 
