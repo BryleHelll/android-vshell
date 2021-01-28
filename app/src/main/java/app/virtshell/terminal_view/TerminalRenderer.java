@@ -1,7 +1,7 @@
 /*
 *************************************************************************
 vShell - x86 Linux virtual shell application powered by QEMU.
-Copyright (C) 2019-2020  Leonid Pliushch <leonid.pliushch@gmail.com>
+Copyright (C) 2019-2021  Leonid Pliushch <leonid.pliushch@gmail.com>
 
 Originally was part of Termux.
 Copyright (C) 2019  Fredrik Fornwall <fredrik@fornwall.net>
