@@ -93,7 +93,7 @@ clean {
 
 task getSystemImage(){
     doLast {
-        downloadAlpineLinuxIso("3.13.0", "daa45a8c12b8458296188d64e6091da79087d47a914d90a0976f6ef92fafba28")
+        downloadAlpineLinuxIso("3.13.1", "f981ff7de98c8d79020d74d61f707bd8743200e082fe8bf2a23a60f8348aa349")
     }
 }
 
