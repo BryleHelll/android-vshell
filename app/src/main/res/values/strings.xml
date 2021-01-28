@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="application_name">vShell</string>
+
+    <!-- Common -->
+    <string name="cancel_label">Cancel</string>
+    <string name="exit_label">Exit</string>
+    <string name="ok_label">OK</string>
+
+    <!-- First run dialog -->
+    <string name="firstrun_dialog_title">Notice</string>
+    <string name="firstrun_dialog_desc"><b>vShell</b> provides a virtual machine with Alpine Linux installation running on emulated hardware. Booting the operating system can take up to 5 minutes, depending on how fast your device is. A some knowledge about shell scripting and administering Linux systems is required in order to use the application successfully.\n\nOnce you close this dialog, a <u>Storage Access Permission</u> would be requested if was not granted previously. This permission is used to allow accessing your files inside the virtual machine.\n\nLong tap anywhere on screen to show a menu of actions, including the access to application user\'s guide.\n\n<i>Disclaimer: neither this application nor its author is affiliated with the Alpine Linux project. Operating system is provided as-is and vShell author is not responsible about bugs in the software packages.</i></string>
+
+    <!-- Installer dialog -->
+    <string name="installer_progress_message">Initializing…</string>
+    <string name="installer_error_title">Initialization failed</string>
+    <string name="installer_error_body">Application was unable to set up runtime resources.</string>
+    <string name="installer_error_try_again_button">Try again</string>
+
+    <!-- Context menu: main -->
+    <string name="menu_copy_text">Copy</string>
+    <string name="menu_paste_text">Paste</string>
+    <string name="menu_more">More…</string>
+
+    <!-- Context menu: more -->
+    <string name="menu_show_help">Show help</string>
+    <string name="menu_select_urls">Select URLs</string>
+    <string name="menu_reset_terminal">Reset</string>
+    <string name="menu_shutdown">Shut down</string>
+    <string name="menu_toggle_ignore_bell">Ignore bell character</string>
+
+    <!-- Select URL dialog -->
+    <string name="toast_no_urls_found">No URLs detected.</string>
+    <string name="toast_url_copied">URL has been copied to clipboard.</string>
+    <string name="toast_bad_url">Cannot open this URL!</string>
+    <string name="select_url_dialog_title">Click URL to copy or long press to open:</string>
+
+    <!-- Notification -->
+    <string name="notification_action_wake_lock">Acquire wakelock</string>
+    <string name="notification_action_wake_unlock">Release wakelock</string>
+    <string name="notification_action_shutdown">Shut down</string>
+
+    <!-- Misc -->
+    <string name="toast_boot_notification">Starting up VM usually takes few minutes…</string>
+    <string name="toast_no_storage_permission">Could not proceed without storage access permission!</string>
+    <string name="toast_reset_terminal">Terminal state has been reset.</string>
+</resources>
