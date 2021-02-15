@@ -102,7 +102,7 @@ from source, then refer to README in [./native-packages](./native-packages/READM
 
 ## Resources
 
-- [Termux](https://github.com/termux): Android terminal emulator with package ecosystem.
+- [Termux](https://github.com/termux): Android terminal emulator with package ecosystem. *vShell borrowed some UI parts and terminal library from Termux.*
 - [Android Terminal Emulator](https://github.com/jackpal/Android-Terminal-Emulator):
   The first terminal app for Android OS. Deprecated.
 - [QEMU](https://qemu.org): A generic machine emulator and virtualizer.
