@@ -1,11 +1,9 @@
 # vShell
 
-> Actually, that's a relaunch of Alpine Term project. Even though setup is
-> different, the whole idea to bring terminal app powered by virtual machine
-> is just in its early versions (v0.x - v3.x).
-
 > vShell is an example of how Android terminal apps can look like after
 > Google enforces its execve() lockdown: https://github.com/termux/termux-app/issues/1072
+
+> vShell is a fork of Termux application but is not its replacement.
 
 vShell is a virtual shell environment application for the Android OS. It
 provides a virtual machine running small Linux distribution ready for the
