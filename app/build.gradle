@@ -15,7 +15,7 @@ android {
 
     defaultConfig {
         applicationId "app.virtshell"
-        minSdkVersion 24
+        minSdkVersion 19
         targetSdkVersion 30
         versionCode 3
         versionName "1.2"
